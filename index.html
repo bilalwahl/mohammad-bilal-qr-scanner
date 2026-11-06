@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <!-- Html5-qrcode library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #reader {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>QR Code Scanner</h1>
+    <div id="reader"></div>
+    <div id="result">Scan a QR code</div>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // جب QR اسکین ہو جائے گا تو یہ فنکشن چلے گا
+            document.getElementById('result').innerText = "Scanned Result: " + decodedText;
+            
+            // اگر آپ کسی لنک پر خودکار طور پر جانا چاہیں تو نیچے والی لائن کا کمنٹ ختم کر سکتے ہیں:
+            // window.location.href = decodedText;
+        }
+
+        function onScanFailure(error) {
+            // اسکیننگ کی خرابی یا فریم نہ ملنے پر (اسے خالی چھوڑ سکتے ہیں تاکہ بار بار ایرر نہ آئے)
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 }, false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+
+</body>
+</html>
